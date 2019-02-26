@@ -13,5 +13,14 @@ public class Maze {
             String line = inf.nextLine();
             System.out.println(line);//hopefully you can do other things with the line
         }
+        int r = 0;
+        int c = 0;
+        while(inf.hasNextLine()) {
+            String line = inf.nextLine();
+            c = line.length();
+            r++;
+        }
+        System.out.println(r);
+        System.out.println(c);
     }
 }
