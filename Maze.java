@@ -24,7 +24,17 @@ public class Maze{
     */
 
   public Maze(String filename) throws FileNotFoundException{
-        //COMPLETE CONSTRUCTOR
+    File text = new File("data1.dat");
+    Scanner scanner = new Scanner(text);
+    String result = "";
+    int lineCount = 0;
+    int lineLength = 0;
+    while(scanner.hasNextLine()){
+        String line = scanner.nextLine();
+        result += line;
+        lineCount++;
+        lineLength = line.length();
+    }
   }
 
   private void wait(int millis){
@@ -32,7 +42,6 @@ public class Maze{
       Thread.sleep(millis);
     }
     catch (InterruptedException e) {
-
     }
   }
 
