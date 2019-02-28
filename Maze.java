@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 public class Maze{
 
-  private char[][]maze;
+  private char[][] maze;
   private boolean animate;//false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
@@ -28,13 +28,35 @@ public class Maze{
     Scanner scanner = new Scanner(text);
     String result = "";
     int lineCount = 0;
+    String mazeString = "";
     int lineLength = 0;
     while(scanner.hasNextLine()){
         String line = scanner.nextLine();
+        mazeString += line;
         result += line;
         lineCount++;
         lineLength = line.length();
     }
+    int index = 0;
+    maze = new char[lineCount][lineLength];
+    for (int i = 0; i < maze.length; i++) {
+      for (int j = 0; j < maze[0].length; j++) {
+        maze[i][j] = mazeString.charAt(index);
+        index++;
+      }
+    }
+    int numE = 0;
+    int numS = 0;
+    for (int i = 0; i < maze.length; i++) {
+      for (int j = 0; j < maze[0].length; j++) {
+        if (maze[i][j] == 'E')
+          numE++;
+        if (maze[i][j] == 'S')
+          numS++;
+      }
+    }
+    if (numE != 1 || numS != 1 || numE == 0 || numS == 0)
+      throw new IllegalStateException();
   }
 
   private void wait(int millis){
