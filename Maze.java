@@ -55,7 +55,7 @@ public class Maze{
           numS++;
       }
     }
-    if (numE != 1 || numS != 1 || numE == 0 || numS == 0)
+    if (numE != 1 || numS != 1)
       throw new IllegalStateException();
   }
 
