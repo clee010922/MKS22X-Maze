@@ -6,28 +6,21 @@ public class Maze{
   private boolean animate;//false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
-
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
       '#' - Walls - locations that cannot be moved onto
       ' ' - Empty Space - locations that can be moved onto
       'E' - the location of the goal (exactly 1 per file)
-
       'S' - the location of the start(exactly 1 per file)
-
       2. The maze has a border of '#' around the edges. So you don't have to check for out of bounds!
-
-
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then:
-
          throw a FileNotFoundException or IllegalStateException
-
     */
 
   public Maze(String filename) throws FileNotFoundException{
     animate = false;
     int r = 0;
     int c = 0;
-    File text = new File(file);
+    File text = new File(filename);
     Scanner scanner = new Scanner(text);
     while(scanner.hasNextLine()) {
       r = scanner.nextLine().length();
@@ -86,8 +79,6 @@ public class Maze{
 
   }
 
-
-
     /*
     Wrapper Solve Function returns the helper function
     Note the helper function has the same name, but different parameters.
@@ -108,7 +99,7 @@ public class Maze{
         }
       }
     }
-    maze[row][col] = '@';
+    maze[row][col] = ' ';
     return solve(row, col);
   }
 
@@ -130,11 +121,26 @@ public class Maze{
         System.out.println(this);
         wait(20);
     }
-
-        //COMPLETE SOLVE
-
-    return -1; //so it compiles
+    maze[row][col] = '@';
+    int count = 0;
+    if (maze[row][col] == 'E') {
+      for (int r = 0; r < maze.length; r++) {
+        for (int c = 0; c < maze[0].length; c++) {
+          if (maze[r][c] == '@')
+            count++;
+        }
+      }
+      return count;
+    }
+    if (maze[row+1][col] == ' ')
+      return solve(row+1, col);
+    if (maze[row-1][col] == ' ')
+      return solve(row-1, col);
+    if (maze[row][col+1] == ' ')
+      return solve(row, col+1);
+    if (maze[row][col-1] == ' ')
+      return solve(row, col-1);
+    maze[row][col] = '.';
+    return -1;
   }
-
-
 }
