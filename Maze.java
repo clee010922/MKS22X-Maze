@@ -113,32 +113,27 @@ public class Maze{
         All visited spots that are part of the solution are changed to '@'
     */
   private int solve(int row, int col){ //you can add more parameters since this is private
-    //automatic animation! You are welcome.
     if(animate){
-        clearTerminal();
-        System.out.println(this);
-        wait(20);
+      clearTerminal();
+      System.out.println(this);
+      wait(70);
     }
+    int[][] moves = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+    int steps = 0;
+    if (maze[row][col] == 'E')
+      return steps;
     maze[row][col] = '@';
-    int count = 0;
-    if (maze[row][col] == 'E') {
-      for (int r = 0; r < maze.length; r++) {
-        for (int c = 0; c < maze[0].length; c++) {
-          if (maze[r][c] == '@')
-            count++;
-        }
-      }
-      return count;
+    for (int i = 0; i < moves.length; i++) {
+      if (maze[row+moves[i][0]][col+moves[i][1]] != '.' &&
+          maze[row+moves[i][0]][col+moves[i][1]] != '#' &&
+          maze[row+moves[i][0]][col+moves[i][1]] != '@') {
+        steps = solve(row+moves[i][0], col+moves[i][1]);
+        if (steps != -1)
+          return steps+1;
+          }
     }
-    if (maze[row+1][col] == ' ')
-      return solve(row+1, col);
-    if (maze[row-1][col] == ' ')
-      return solve(row-1, col);
-    if (maze[row][col+1] == ' ')
-      return solve(row, col+1);
-    if (maze[row][col-1] == ' ')
-      return solve(row, col-1);
     maze[row][col] = '.';
     return -1;
   }
+
 }
