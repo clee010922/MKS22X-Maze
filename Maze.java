@@ -24,26 +24,22 @@ public class Maze{
     */
 
   public Maze(String filename) throws FileNotFoundException{
-    File text = new File("data1.dat");
+    int r = 0;
+    int c = 0;
+    File text = new File(file);
     Scanner scanner = new Scanner(text);
-    String result = "";
-    int lineCount = 0;
-    String mazeString = "";
-    int lineLength = 0;
-    while(scanner.hasNextLine()){
-        String line = scanner.nextLine();
-        mazeString += line;
-        result += line;
-        lineCount++;
-        lineLength = line.length();
+    while(scanner.hasNextLine()) {
+      r = scanner.nextLine().length();
+      c++;
     }
     int index = 0;
     maze = new char[lineCount][lineLength];
-    for (int i = 0; i < maze.length; i++) {
-      for (int j = 0; j < maze[0].length; j++) {
-        maze[i][j] = mazeString.charAt(index);
-        index++;
+    while(scanner.hasNextLine()) {
+      String line = scanner.nextLine();
+      for (int i = 0; i < maze[0].length; i++) {
+        maze[index][i] = line.charAt(i);
       }
+      index++;
     }
     int numE = 0;
     int numS = 0;
