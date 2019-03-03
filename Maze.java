@@ -23,27 +23,25 @@ public class Maze{
     File text = new File(filename);
     Scanner scanner = new Scanner(text);
     while(scanner.hasNextLine()) {
-      r = scanner.nextLine().length();
-      c++;
+      String line = scanner.nextLine();
+      c = line.length();
+      r++;
     }
     int index = 0;
     maze = new char[r][c];
-    while(scanner.hasNextLine()) {
-      String line = scanner.nextLine();
-      for (int i = 0; i < maze[0].length; i++) {
-        maze[index][i] = line.charAt(i);
-      }
-      index++;
-    }
+    Scanner scan = new Scanner(text);
     int numE = 0;
     int numS = 0;
-    for (int i = 0; i < maze.length; i++) {
-      for (int j = 0; j < maze[0].length; j++) {
-        if (maze[i][j] == 'E')
+    while(scan.hasNextLine()) {
+      String line = scan.nextLine();
+      for (int i = 0; i < c; i++) {
+        maze[index][i] = line.charAt(i);
+        if (maze[index][i] == 'E')
           numE++;
-        if (maze[i][j] == 'S')
+        if (maze[index][i] == 'S')
           numS++;
       }
+      index++;
     }
     if (numE != 1 || numS != 1)
       throw new IllegalStateException();
